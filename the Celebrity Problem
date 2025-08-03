@@ -1,0 +1,29 @@
+class Solution {
+    public int celebrity(int mat[][]) {
+        // code here
+        int n = mat.length;
+        Stack<Integer> st = new Stack<>();
+        for(int i = 0; i < n; i++) {
+            st.push(i);
+        }
+        while(st.size() > 1) {
+            int v1 = st.pop();
+            int v2 = st.pop();
+            if(mat[v1][v2] == 0) st.push(v1); //iska mtlab v1 hai jo v2 nhi janta hai then 
+            //maybe v1 celeb ho, v2 to celeb nhi hoga
+            else st.push(v2); // v1 knows v2 => v1 can't be celebrity, maybe v2 is
+        }
+        if(st.size() == 0) return -1;
+        int potential = st.pop();
+        for(int j = 0; j < n; j++) {
+            if(potential != j && mat[potential][j] == 1) return -1; //yha pr ye check kr rhe hai potential wala 
+            //element khi colomn me mil gya to celebraty nhi hai agr nhi mila to celebrety h
+        }
+        for(int i = 0; i < n; i++) {
+            if(i == potential) continue;
+            if(mat[i][potential] == 0) return -1; //yha pr ye check kr rhe ki row wala element
+            //khi potential element ko janta nhi na hai agar janta hai to celebrety nhi hai
+        }
+        return potential;
+    }
+}
