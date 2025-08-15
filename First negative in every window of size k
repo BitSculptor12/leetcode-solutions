@@ -1,0 +1,32 @@
+import java.util.*;
+
+class Solution {
+    static List<Integer> firstNegInt(int arr[], int k) {
+        int n = arr.length;
+        List<Integer> list = new ArrayList<>();
+        Queue<Integer> q = new LinkedList<>(); // store indices of negative numbers
+
+        // Add all negative indices
+        for (int i = 0; i < n; i++) {
+            if (arr[i] < 0) {
+                q.add(i);
+            }
+        }
+
+        // Process each window
+        for (int i = 0; i <= n - k; i++) {
+            // Remove all indices that are outside the window
+            while (!q.isEmpty() && q.peek() < i) {
+                q.remove();
+            }
+
+            // Check if there's a negative in the window
+            if (!q.isEmpty() && q.peek() <= i + k - 1) {
+                list.add(arr[q.peek()]);
+            } else {
+                list.add(0);
+            }
+        }
+        return list;
+    }
+}
