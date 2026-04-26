@@ -8,18 +8,18 @@ class Solution {
         for(int i=0;i<n;i++){
             set.add(arr[i]);
         }
-        int maxi =1;
+        int maxlen = 0;
         for(int ele:arr){
+            int len =0;
             if(!set.contains(ele-1)){
-                int curr =ele;
-                int len =1;
+                int curr = ele;
                 while(set.contains(curr)){
                     curr++;
                     len++;
                 }
-                maxi = Math.max(maxi,len);
             }
+            maxlen = Math.max(maxlen,len);
         }
-        return maxi-1;
+        return maxlen;
     }
 }
